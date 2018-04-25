@@ -122,6 +122,7 @@ public class Writer implements IVisitor {
 		return res;
 	}
 
+	@Override
 	public void visitFromBoolean(COSBoolean obj) {
 		try {
 			this.write(String.valueOf(obj.get()));
@@ -130,6 +131,7 @@ public class Writer implements IVisitor {
 		}
 	}
 
+	@Override
 	public void visitFromInteger(COSInteger obj) {
 		try {
 			this.write(obj.toString());
@@ -138,6 +140,7 @@ public class Writer implements IVisitor {
 		}
 	}
 
+	@Override
 	public void visitFromReal(COSReal obj) {
 		try {
 			this.write(obj.toString());
@@ -146,6 +149,7 @@ public class Writer implements IVisitor {
 		}
 	}
 
+	@Override
 	public void visitFromString(COSString obj) {
 		try {
 			this.write(obj.getPrintableString());
@@ -154,6 +158,7 @@ public class Writer implements IVisitor {
 		}
 	}
 
+	@Override
 	public void visitFromName(COSName obj) {
 		try {
 			this.write(obj.toString());
@@ -162,6 +167,7 @@ public class Writer implements IVisitor {
 		}
 	}
 
+	@Override
 	public void visitFromArray(COSArray obj) {
 		try {
 			this.write("[");
@@ -175,6 +181,7 @@ public class Writer implements IVisitor {
 		}
 	}
 
+	@Override
 	public void visitFromDictionary(COSDictionary obj) {
 		try {
 			this.write("<<");
@@ -190,6 +197,7 @@ public class Writer implements IVisitor {
 		}
 	}
 
+	@Override
 	public void visitFromStream(COSStream obj) {
 		long length;
 
@@ -256,6 +264,7 @@ public class Writer implements IVisitor {
 		}
 	}
 
+	@Override
 	public void visitFromNull(COSNull obj) {
 		try {
 			this.write("null");
@@ -264,6 +273,7 @@ public class Writer implements IVisitor {
 		}
 	}
 
+	@Override
 	public void visitFromIndirect(COSIndirect obj) {
 		try {
 			COSKey key = obj.getKey();

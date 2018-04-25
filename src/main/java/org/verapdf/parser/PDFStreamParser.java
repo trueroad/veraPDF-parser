@@ -252,10 +252,7 @@ public class PDFStreamParser extends NotSeekableCOSParser {
 			}
 			default: {
 				String operator = nextOperator();
-				if (operator.length() == 0) {
-					//stream is corrupted
-					result = null;
-				} else {
+				if (operator.length() != 0) {
 					result = Operator.getOperator(operator);
 				}
 			}

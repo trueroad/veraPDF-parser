@@ -49,22 +49,27 @@ public abstract class XRefReader implements IReader {
 	}
 
 	//PUBLIC METHODS
+	@Override
 	public List<COSKey> getKeys() {
 		return this.xref.getKeys();
 	}
 
+	@Override
 	public long getStartXRef() {
 		return this.xref.getStartXRef();
 	}
 
+	@Override
 	public COSTrailer getTrailer() {
 		return this.xref.getTrailer();
 	}
 
+	@Override
 	public COSTrailer getFirstTrailer() {
 		return this.xref.getFirstTrailer();
 	}
 
+	@Override
 	public COSTrailer getLastTrailer() {
 		return this.xref.getLastTrailer();
 	}

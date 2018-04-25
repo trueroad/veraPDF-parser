@@ -41,6 +41,7 @@ public class IndirectWriter extends Writer {
 		renum.put(new COSKey(0, 65535), new COSKey(0, 65535));
 	}
 
+	@Override
 	protected COSKey getKeyToWrite(final COSKey key) {
 		if (!this.renum.containsKey(key)) {
 			this.renum.put(key, new COSKey(this.renum.size(), 0));

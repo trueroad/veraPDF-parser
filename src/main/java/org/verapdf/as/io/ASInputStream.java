@@ -38,6 +38,7 @@ public abstract class ASInputStream extends InputStream {
 
 	protected IntReference resourceUsers = new IntReference(1);
 
+	@Override
 	public abstract int read() throws IOException;
 
 	public abstract int read(byte[] buffer, int size) throws IOException;

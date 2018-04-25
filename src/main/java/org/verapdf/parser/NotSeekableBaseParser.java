@@ -63,6 +63,7 @@ public class NotSeekableBaseParser implements Closeable {
     /**
      * Closes source stream.
      */
+    @Override
     public void close() throws IOException {
         this.source.close();
     }

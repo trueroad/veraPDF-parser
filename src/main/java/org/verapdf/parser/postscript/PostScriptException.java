@@ -7,7 +7,9 @@ package org.verapdf.parser.postscript;
  */
 public class PostScriptException extends Exception {
 
-    public PostScriptException() {
+	private static final long serialVersionUID = 6312613772462589873L;
+
+	public PostScriptException() {
     }
 
     public PostScriptException(String message) {

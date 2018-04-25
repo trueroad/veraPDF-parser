@@ -45,6 +45,7 @@ public class COSName extends COSDirect {
         this.value = ASAtom.getASAtom(value);
     }
 
+    @Override
     public COSObjType getType() {
         return COSObjType.COS_NAME;
     }
@@ -65,19 +66,23 @@ public class COSName extends COSDirect {
         return new COSObject(new COSName(value));
     }
 
+    @Override
     public void accept(final IVisitor visitor) {
         visitor.visitFromName(this);
     }
 
+    @Override
     public Object accept(final ICOSVisitor visitor) {
         return visitor.visitFromName(this);
     }
 
     //! ASAtom data exchange
+    @Override
     public ASAtom getName() {
         return this.value;
     }
 
+    @Override
     public boolean setName(final ASAtom value) {
         set(value);
         return true;
@@ -99,15 +104,18 @@ public class COSName extends COSDirect {
 		/*! It is recommended to use ASAtom instead of the string representation of the PDF Name object
 		    whenever possible. See method GetName().
 		*/
+    @Override
     public String getString() {
         return this.value.getValue();
     }
 
+    @Override
     public boolean setString(final String value) {
         set(value);
         return true;
     }
 
+    @Override
     public String toString() {
         return value.toString();
     }

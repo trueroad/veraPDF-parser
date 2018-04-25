@@ -42,6 +42,7 @@ public class COSReal extends COSNumber {
         this.value = value;
     }
 
+    @Override
     public COSObjType getType() {
         return COSObjType.COS_REAL;
     }
@@ -50,14 +51,17 @@ public class COSReal extends COSNumber {
         return new COSObject(new COSReal(initValue));
     }
 
+    @Override
     public void accept(final IVisitor visitor) {
         visitor.visitFromReal(this);
     }
 
+    @Override
     public Object accept(final ICOSVisitor visitor) {
         return visitor.visitFromReal(this);
     }
 
+    @Override
     public Long getInteger() {
         return (long) get();
     }
@@ -66,10 +70,12 @@ public class COSReal extends COSNumber {
         set(value);
     }
 
+    @Override
     public Double getReal() {
         return get();
     }
 
+    @Override
     public boolean setReal(final double value) {
         set(value);
         return true;
@@ -83,6 +89,7 @@ public class COSReal extends COSNumber {
         this.value = value;
     }
 
+    @Override
     public String toString() {
         String stringValue = FORMATTER.format(this.value);
         // remove fraction digit "0" only

@@ -280,6 +280,7 @@ public class COSStream extends COSDictionary {
 		return this.equals(obj, checkedObjects);
 	}
 
+	@Override
 	boolean equals(Object obj, List<COSBasePair> checkedObjects) {
 		if (this == obj) {
 			return true;

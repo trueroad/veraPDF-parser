@@ -167,7 +167,7 @@ abstract class CFFFontBaseParser extends CFFFileBaseParser {
                     case 19:    // Subrs
                         this.subrsOffset = this.stack.get(stack.size() - 1).getInteger()
                                 + privateDictOffset;
-                        this.stack.clear();
+                        //$FALL-THROUGH$
                     default:
                         this.stack.clear();
                 }

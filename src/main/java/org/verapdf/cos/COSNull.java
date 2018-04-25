@@ -30,6 +30,7 @@ public class COSNull extends COSDirect {
 
     public static final COSNull NULL = new COSNull();
 
+    @Override
     public COSObjType getType() {
         return COSObjType.COS_NULL;
     }
@@ -38,10 +39,12 @@ public class COSNull extends COSDirect {
         return new COSObject(new COSNull());
     }
 
+    @Override
     public void accept(final IVisitor visitor) {
         visitor.visitFromNull(this);
     }
 
+    @Override
     public Object accept(final ICOSVisitor visitor) {
         return visitor.visitFromNull(this);
     }

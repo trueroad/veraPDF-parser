@@ -25,6 +25,8 @@ package org.verapdf.exceptions;
  */
 public class LoopedException extends RuntimeException {
 
+	private static final long serialVersionUID = -3963508081454899052L;
+
 	public LoopedException() {
 	}
 

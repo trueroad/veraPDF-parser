@@ -53,6 +53,7 @@ class CIDInterval implements CIDMappable {
      * @param character is code of character.
      * @return CID of given character.
      */
+    @Override
     public int getCID(int character) {
         if (!contains(character)) {
             return -1;

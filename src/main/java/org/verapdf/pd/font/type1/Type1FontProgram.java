@@ -254,7 +254,8 @@ public class Type1FontProgram extends PSParser implements FontProgram {
      * @return the closeable object that closes source stream of this font
      * program.
      */
-    public ASFileStreamCloser getFontProgramResource() {
+    @Override
+	public ASFileStreamCloser getFontProgramResource() {
         return new ASFileStreamCloser(this.source);
     }
 }

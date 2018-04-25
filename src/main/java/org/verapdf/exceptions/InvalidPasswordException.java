@@ -27,6 +27,8 @@ import java.io.IOException;
  */
 public class InvalidPasswordException extends IOException {
 
+	private static final long serialVersionUID = -2138541336563555600L;
+
 	public InvalidPasswordException() {
 	}
 

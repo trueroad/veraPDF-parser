@@ -108,6 +108,7 @@ public class COSFilters extends PDObject {
 		return entries;
 	}
 
+	@Override
 	protected void updateToObject() {
 		COSObject filters = getObject();
 
@@ -118,6 +119,7 @@ public class COSFilters extends PDObject {
 		}
 	}
 
+	@Override
 	protected void updateFromObject() {
 		COSObject filters = getObject();
 		if(filters.getType().equals(COSObjType.COS_ARRAY)) {

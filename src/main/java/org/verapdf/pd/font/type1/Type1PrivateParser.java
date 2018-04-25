@@ -20,12 +20,6 @@
  */
 package org.verapdf.pd.font.type1;
 
-import org.verapdf.as.CharTable;
-import org.verapdf.as.io.ASInputStream;
-import org.verapdf.as.io.ASMemoryInStream;
-import org.verapdf.parser.BaseParser;
-import org.verapdf.parser.Token;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Arrays;
@@ -33,6 +27,13 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import org.verapdf.as.CharTable;
+import org.verapdf.as.io.ASInputStream;
+import org.verapdf.as.io.ASMemoryInStream;
+import org.verapdf.parser.BaseParser;
+import org.verapdf.parser.Token;
+import org.verapdf.parser.Token.Type;
 
 /**
  * This class parses private data in font Type 1 files after it was
@@ -95,46 +96,45 @@ class Type1PrivateParser extends BaseParser {
     }
 
     private void processToken() throws IOException {
-        switch (this.getToken().type) {
-            case TT_NAME:
-                switch (this.getToken().getValue()) {
-                    case Type1StringConstants.CHAR_STRINGS_STRING:
-                        nextToken();
-                        int amountOfGlyphs = (int) this.getToken().integer;
-                        nextToken();    // reading "dict"
+        if (this.getToken().type == Type.TT_NAME) {
+            switch (this.getToken().getValue()) {
+                case Type1StringConstants.CHAR_STRINGS_STRING:
+                    nextToken();
+                    int amountOfGlyphs = (int) this.getToken().integer;
+                    nextToken();    // reading "dict"
+                    nextToken();    // reading "dup"
+                    nextToken();    // reading "begin"
+                    for (int i = 0; i < amountOfGlyphs; ++i) {
+                        decodeCharString();
+                    }
+                    break;
+                case Type1StringConstants.LEN_IV_STRING:
+                    this.nextToken();
+                    if (this.getToken().type == Token.Type.TT_INTEGER) {
+                        this.lenIV = (int) this.getToken().integer;
+                    }
+                    break;
+                case Type1StringConstants.SUBRS:    // skipping binary data that can be bad for parser
+                    nextToken();
+                    int amountOfSubrs = (int) this.getToken().integer;
+                    nextToken();    // reading "array"
+                    for (int i = 0; i < amountOfSubrs; ++i) {
                         nextToken();    // reading "dup"
-                        nextToken();    // reading "begin"
-                        for (int i = 0; i < amountOfGlyphs; ++i) {
-                            decodeCharString();
+                        if (!this.getToken().getValue().equals(Type1StringConstants.DUP_STRING)) {
+                            break;
                         }
-                        break;
-                    case Type1StringConstants.LEN_IV_STRING:
-                        this.nextToken();
-                        if (this.getToken().type == Token.Type.TT_INTEGER) {
-                            this.lenIV = (int) this.getToken().integer;
-                        }
-                        break;
-                    case Type1StringConstants.SUBRS:    // skipping binary data that can be bad for parser
+                        nextToken();    // reading number
                         nextToken();
-                        int amountOfSubrs = (int) this.getToken().integer;
-                        nextToken();    // reading "array"
-                        for (int i = 0; i < amountOfSubrs; ++i) {
-                            nextToken();    // reading "dup"
-                            if (!this.getToken().getValue().equals(Type1StringConstants.DUP_STRING)) {
-                                break;
-                            }
-                            nextToken();    // reading number
-                            nextToken();
-                            long toSkip = this.getToken().integer;
-                            skipRD();
-                            this.skipSpaces();
-                            this.source.skip(toSkip);
-                            this.nextToken();   // reading "NP"
-                        }
-                        break;
-                    default:
-                        break;
-                }
+                        long toSkip = this.getToken().integer;
+                        skipRD();
+                        this.skipSpaces();
+                        this.source.skip(toSkip);
+                        this.nextToken();   // reading "NP"
+                    }
+                    break;
+                default:
+                    break;
+            }
         }
     }
 

@@ -52,7 +52,7 @@ public class COSFilterFlateEncodeTest {
         encodedPDF.delete();
     }
 
-    private byte[] getDataToEncode() throws IOException {
+    private static byte[] getDataToEncode() throws IOException {
         byte[] file = new byte[20000];
         InternalInputStream stream = new InternalInputStream(FILE_PATH, 2);
         int length = stream.read(file, 20000);
@@ -60,7 +60,7 @@ public class COSFilterFlateEncodeTest {
         return Arrays.copyOf(file, length);
     }
 
-    private void encodePDF(byte[] toEncode, File encodedPDF) throws IOException {
+    private static void encodePDF(byte[] toEncode, File encodedPDF) throws IOException {
         InternalOutputStream outputStream = new InternalOutputStream(encodedPDF.getAbsolutePath());
         COSFilterFlateEncode filter = new COSFilterFlateEncode(outputStream);
         filter.write(toEncode);

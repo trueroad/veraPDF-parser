@@ -25,6 +25,7 @@ import org.verapdf.cos.COSBase;
 import org.verapdf.cos.COSObjType;
 import org.verapdf.cos.COSObject;
 import org.verapdf.cos.COSStream;
+import org.verapdf.parser.Token.Type;
 
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -48,20 +49,17 @@ public class PDMetadata extends PDObject {
         COSObject filters = getKey(ASAtom.FILTER);
         if (filters != null) {
             List<ASAtom> res = new ArrayList<>();
-            switch (filters.getType()) {
-                case COS_NAME:
+            if (filters.getType() == COSObjType.COS_NAME) {
                     res.add(filters.getName());
-                    break;
-                case COS_ARRAY:
-                    for (int i = 0; i < filters.size().intValue(); ++i) {
-                        COSObject elem = filters.at(i);
-                        if (elem.getType() == COSObjType.COS_NAME) {
-                            res.add(elem.getName());
-                        } else {
-                            LOGGER.log(Level.SEVERE, "Filter array contain non COSName element");
-                        }
+            } else if(filters.getType() == COSObjType.COS_ARRAY) {
+                for (int i = 0; i < filters.size().intValue(); ++i) {
+                    COSObject elem = filters.at(i);
+                    if (elem.getType() == COSObjType.COS_NAME) {
+                        res.add(elem.getName());
+                    } else {
+                        LOGGER.log(Level.SEVERE, "Filter array contain non COSName element");
                     }
-                    break;
+                }
             }
             return Collections.unmodifiableList(res);
         }

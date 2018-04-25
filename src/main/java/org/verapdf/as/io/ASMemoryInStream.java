@@ -242,6 +242,7 @@ public class ASMemoryInStream extends SeekableInputStream {
     /**
      * @return the amount of bytes left in stream.
      */
+    @Override
     public int available() {
         return bufferSize - currentPosition;
     }
